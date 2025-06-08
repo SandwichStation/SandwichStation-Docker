@@ -1,0 +1,8 @@
+name: SS14
+services:
+  server:
+    build:
+      context: .
+    restart: unless-stopped
+    env_file:
+      - ./.env

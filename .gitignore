@@ -406,8 +406,10 @@ FodyWeavers.xsd
 *.sln.iml
 
 #Dont upload my .env
-.env
+/.env
 
 #Dont take my debug batchfiles
-recreate.bat
+/recreate.bat
 
+#Dont upload for now, future only
+/appsettings.yml
