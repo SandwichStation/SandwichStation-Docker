@@ -9,6 +9,9 @@ RUN apt-get -y update && \
 #RUN git clone https://github.com/space-wizards/SS14.Watchdog ./ss14-Watchdog
 RUN git clone https://github.com/SandwichStation/SandwichStation ./ss14-Sandwich
 
+#download prereqs for SS14 by running RUN_THIS.py
+RUN cd ss14-Sandwich && python3 RUN_THIS.py && dotnet build Content.Packaging --configuration Release
+
 # Server stage
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS server
 
@@ -17,13 +20,13 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS server
 #    dotnet publish -c Release -r linux-x64 --no-self-contained && \
 #    cp -r SS14.Watchdog/bin/Release/net7.0/linux-x64/publish /ss14-server
 
+### Build Stage done
+
 # Copy from the build stage
 COPY --from=build /ss14-Sandwich /ss14-server
-RUN cd ./ss14-Sandwich && python3 RUN_THIS.py
 
 # Install necessary tools
-RUN apt-get -y update && apt-get -y install unzip
-
+RUN apt-get -y update
 
 # Expose necessary ports
 EXPOSE 1212/tcp
