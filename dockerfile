@@ -38,11 +38,10 @@ EXPOSE 5000/udp
 VOLUME [ "/ss14-svr" ]
 
 # Add configurations
-ADD appsettings.yml /ss14-default/publish/appsettings.yml
-ADD server_config.toml /ss14-default/publish/server_config.toml
+ADD appsettings.yml /ss14-server/publish/appsettings.yml
+ADD server_config.toml /ss14-server/publish/server_config.toml
 
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+RUN chmod +x ./ss14-server/Scripts/sh/runQuickServer.sh
 
 # Set the entry point for the container
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT ["/ss14-server/Scripts/sh/runQuickServer.sh"]
