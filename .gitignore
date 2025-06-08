@@ -404,3 +404,10 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+#Dont upload my .env
+.env
+
+#Dont take my debug batchfiles
+recreate.bat
+
