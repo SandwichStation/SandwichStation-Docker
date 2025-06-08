@@ -3,11 +3,11 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
 # Update and install necessary tools
 RUN apt-get -y update && \
-    apt-get -y install curl unzip wget git
+    apt-get -y install curl unzip wget git python3
 
 # Clone and download repo
-#RUN git clone https://github.com/space-wizards/SS14.Watchdog ss14-Watchdog
-RUN git clone https://github.com/SandwichStation/SandwichStation ss14-Sandwich
+#RUN git clone https://github.com/space-wizards/SS14.Watchdog ./ss14-Watchdog
+RUN git clone https://github.com/SandwichStation/SandwichStation ./ss14-Sandwich
 
 # Server stage
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS server
@@ -19,6 +19,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS server
 
 # Copy from the build stage
 COPY --from=build /ss14-Sandwich /ss14-server
+RUN cd ./ss14-Sandwich && python3 RUN_THIS.py
 
 # Install necessary tools
 RUN apt-get -y update && apt-get -y install unzip
